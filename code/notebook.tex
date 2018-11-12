@@ -1,0 +1,706 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{MultiCountrySIR}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{multi-country-sir-model}{%
+\section{Multi-Country SIR Model}\label{multi-country-sir-model}}
+
+\hypertarget{by-colin-snow-and-meg-ku}{%
+\subsection{by Colin Snow and Meg Ku}\label{by-colin-snow-and-meg-ku}}
+
+    \hypertarget{question}{%
+\subsubsection{Question:}\label{question}}
+
+How does a plague/disease spread between two or more countries?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Configure Jupyter so figures appear in the notebook}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Configure Jupyter to display the assigned value after an assignment}
+        \PY{o}{\PYZpc{}}\PY{k}{config} InteractiveShell.ast\PYZus{}node\PYZus{}interactivity=\PYZsq{}last\PYZus{}expr\PYZus{}or\PYZus{}assign\PYZsq{}
+        
+        \PY{c+c1}{\PYZsh{} import functions from the modsim.py module}
+        \PY{k+kn}{from} \PY{n+nn}{modsim} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \hypertarget{model}{%
+\subsubsection{Model:}\label{model}}
+
+We plan to make a model that simulates the cycle of infection between
+two large populations.
+
+We do not have concrete data yet, so the numbers below are solely for
+creating a working model.
+
+Here we set the initial state and system variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Set initial state variables}
+        \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}globally defining system variables}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{t0 = 1,}
+        \PY{l+s+sd}{dt = 0.01}
+        \PY{l+s+sd}{t\PYZus{}end = 100}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{infectionRate1} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate1} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{1} 
+        
+        \PY{c+c1}{\PYZsh{}Creating our system}
+        \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                        \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}
+                        \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                        \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                        \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                        \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                        \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                        \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} init              s1    99
+        s2    99
+        i1     5
+        i2     0
+        r1     0
+        r{\ldots}
+        t0                                                                1
+        t\_end                                                            60
+        infectionRate1                                                 0.01
+        recoveryRate1                                                  0.05
+        infectionRate2                                                 0.01
+        recoveryRate2                                                  0.05
+        movementRate                                                      1
+        dt                                                             0.01
+        dtype: object
+\end{Verbatim}
+            
+    Here we tested to see if the ODE solver would be compatible for the
+model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{slope\PYZus{}func}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    finds dx/dt for each stock and returns them}
+        \PY{l+s+sd}{    inputs:}
+        \PY{l+s+sd}{        state current state variable at time t}
+        \PY{l+s+sd}{        t = current time}
+        \PY{l+s+sd}{        system = model\PYZsq{}s system variable}
+        \PY{l+s+sd}{    output:}
+        \PY{l+s+sd}{        updated rates}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+            \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} infectedPeopleMoved= movementRate*np.random.randn()}
+           
+            \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+            \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+            \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} \PY{c+c1}{\PYZsh{}\PYZsh{}+ infectedPeopleMoved}
+            \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZhy{} infectedPeopleMoved}
+            \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+            \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+            \PY{k}{return} \PY{n}{ds1dt}\PY{p}{,} \PY{n}{ds2dt}\PY{p}{,} \PY{n}{di1dt}\PY{p}{,} \PY{n}{di2dt}\PY{p}{,} \PY{n}{dr1dt}\PY{p}{,} \PY{n}{dr2dt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Run ODE solver to test functions}
+         \PY{n}{results}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func}\PY{p}{,}\PY{n}{min\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{details}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sol                                                      None
+t\_events                                                   []
+nfev                                                      152
+njev                                                        0
+nlu                                                         0
+status                                                      0
+message     The solver successfully reached the end of the{\ldots}
+success                                                  True
+dtype: object
+                 s1         s2         i1   i2        r1   r2
+0.000000  99.000000  99.000000   5.000000  0.0  0.000000  0.0
+0.006928  98.965602  98.965602   5.032660  0.0  0.001738  0.0
+0.076204  98.609742  98.609742   5.370509  0.0  0.019749  0.0
+0.768969  93.607499  93.607499  10.112458  0.0  0.280043  0.0
+2.107415  73.074001  73.074001  29.408641  0.0  1.517358  0.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Miniconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}integrate\textbackslash{}\_ivp\textbackslash{}common.py:32: UserWarning: The following arguments have no effect for a chosen solver: `min\_step`.
+  .format(", ".join("`\{\}`".format(x) for x in extraneous)))
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Plot the results}
+        \PY{n}{results}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x29f3064da90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We decided that using Euler's method would be better for our model's
+needs, especially when incorporating the travel between countries. We'll
+come back to the ODE solver if possible when our data is established.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{update\PYZus{}func}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Uses Euler\PYZsq{}s method to estimate the next value.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    input:}
+        \PY{l+s+sd}{        state = State object with current State values}
+        \PY{l+s+sd}{        t = not used, but included for consistency}
+        \PY{l+s+sd}{        system = System object with system variables}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    output:}
+        \PY{l+s+sd}{        new State variable with updated State values}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+            \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+            \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{if} \PY{p}{(}\PY{n}{flip}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)} \PY{o+ow}{and} \PY{n}{i2}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{000001}
+            \PY{k}{elif}\PY{p}{(}\PY{n}{i1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{000001}
+           
+            \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+            \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)}
+            \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} 
+            \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} 
+            \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+            \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+            \PY{n}{s1}   \PY{o}{+}\PY{o}{=} \PY{n}{ds1dt}\PY{o}{*}\PY{n}{dt} 
+            \PY{n}{s2}   \PY{o}{+}\PY{o}{=} \PY{n}{ds2dt}\PY{o}{*}\PY{n}{dt}
+            \PY{n}{i1}   \PY{o}{+}\PY{o}{=} \PY{n}{di1dt}\PY{o}{*}\PY{n}{dt} \PY{o}{+} \PY{n}{infectedPeopleMoved}\PY{o}{*}\PY{n}{dt}
+            \PY{n}{i2}   \PY{o}{+}\PY{o}{=} \PY{n}{di2dt}\PY{o}{*}\PY{n}{dt} \PY{o}{\PYZhy{}} \PY{n}{infectedPeopleMoved}\PY{o}{*}\PY{n}{dt}
+            \PY{n}{r1}   \PY{o}{+}\PY{o}{=} \PY{n}{dr1dt}\PY{o}{*}\PY{n}{dt}
+            \PY{n}{r2}   \PY{o}{+}\PY{o}{=} \PY{n}{dr2dt}\PY{o}{*}\PY{n}{dt}
+            
+            \PY{k}{return} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{n}{s1}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{n}{s2}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{n}{i1}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{n}{i2}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{n}{r1}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{n}{r2}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    Here we used the run\_simulation function previously defined in
+notebooks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}simulation}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Runs a simulation}
+        \PY{l+s+sd}{    input:}
+        \PY{l+s+sd}{        state = State variable}
+        \PY{l+s+sd}{        system = System variable}
+        \PY{l+s+sd}{    output: }
+        \PY{l+s+sd}{        TimeFrame of all data points generated}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{n}{frame} \PY{o}{=} \PY{n}{TimeFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{init}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+            \PY{n}{frame}\PY{o}{.}\PY{n}{row}\PY{p}{[}\PY{n}{t0}\PY{p}{]} \PY{o}{=} \PY{n}{init}
+            
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{linrange}\PY{p}{(}\PY{n}{system}\PY{o}{.}\PY{n}{t0}\PY{p}{,}\PY{n}{system}\PY{o}{.}\PY{n}{t\PYZus{}end}\PY{p}{,}\PY{n}{dt}\PY{p}{)}\PY{p}{:}
+                \PY{n}{frame}\PY{o}{.}\PY{n}{row}\PY{p}{[}\PY{n}{t}\PY{o}{+}\PY{n}{dt}\PY{p}{]} \PY{o}{=} \PY{n}{update\PYZus{}func}\PY{p}{(}\PY{n}{frame}\PY{o}{.}\PY{n}{row}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+            \PY{k}{return} \PY{n}{frame}
+\end{Verbatim}
+
+
+    \hypertarget{results}{%
+\subsubsection{Results:}\label{results}}
+
+Here we run the simulation and graph the resulting TimeFrame.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{results} \PY{o}{=} \PY{n}{run\PYZus{}simulation}\PY{p}{(}\PY{n}{init}\PY{p}{,} \PY{n}{system}\PY{p}{)}
+         \PY{n}{results}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}            s1  s2       i1           i2          r1           r2
+         1.00       99  99        5            0           0            0
+         1.01  98.9505  99    5.047       -1e-08      0.0025            0
+         1.02  98.9006  99  5.09442     -9.4e-11   0.0050235       -5e-12
+         1.03  98.8502  99  5.14225  9.90512e-09  0.00757071   -5.047e-12
+         1.04  98.7993  99  5.19051 -1.77551e-12   0.0101418 -9.44418e-14
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{results}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x29f2c8474e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{results}{%
+\subsubsection{Results:}\label{results}}
+
+Coming soon!
+
+    \hypertarget{interpretation}{%
+\subsubsection{Interpretation:}\label{interpretation}}
+
+Coming soon!
+
+    \hypertarget{ignore-everything-below-this-please.}{%
+\subsubsection{Ignore everything below this
+please.}\label{ignore-everything-below-this-please.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{slope\PYZus{}func2}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    finds dx/dt for each stock and returns them}
+         \PY{l+s+sd}{    inputs:}
+         \PY{l+s+sd}{        state current state variable at time t}
+         \PY{l+s+sd}{        t = current time}
+         \PY{l+s+sd}{        system = model\PYZsq{}s system variable}
+         \PY{l+s+sd}{    output:}
+         \PY{l+s+sd}{        updated rates}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+             \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} infectedPeopleMoved= movementRate*np.random.randn()}
+             \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{if} \PY{p}{(}\PY{n}{flip}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)} \PY{o+ow}{and} \PY{n}{i2}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{elif}\PY{p}{(}\PY{n}{i1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            
+             \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+             \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+             \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} \PY{o}{+} \PY{n}{infectedPeopleMoved}
+             \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} \PY{o}{\PYZhy{}} \PY{n}{infectedPeopleMoved}
+             \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+             \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+             \PY{k}{return} \PY{n}{ds1dt}\PY{p}{,} \PY{n}{ds2dt}\PY{p}{,} \PY{n}{di1dt}\PY{p}{,} \PY{n}{di2dt}\PY{p}{,} \PY{n}{dr1dt}\PY{p}{,} \PY{n}{dr2dt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{results2}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func2}\PY{p}{,} \PY{n}{min\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Miniconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}scipy\textbackslash{}integrate\textbackslash{}\_ivp\textbackslash{}common.py:32: UserWarning: The following arguments have no effect for a chosen solver: `min\_step`.
+  .format(", ".join("`\{\}`".format(x) for x in extraneous)))
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{details}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} sol                                                      None
+         t\_events                                                   []
+         nfev                                                   106058
+         njev                                                        0
+         nlu                                                         0
+         status                                                      0
+         message     The solver successfully reached the end of the{\ldots}
+         success                                                  True
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{results2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x29f31be6e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{results2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}                   s1         s2        i1        i2         r1            r2
+         0.000000   99.000000  99.000000  5.000000  0.000000   0.000000  0.000000e+00
+         0.000464   98.997705  98.997705  5.001716  0.000464   0.000116  5.373564e-09
+         0.005099   98.974713  98.974713  5.018910  0.005112   0.001277  6.511467e-07
+         0.035439   98.822413  98.822413  5.133171  0.036035   0.008977  3.174908e-05
+         0.039162   98.803504  98.803504  5.147400  0.039890   0.009934  3.881516e-05
+         0.042855   98.784693  98.784693  5.166375  0.038916   0.010886  4.635797e-05
+         0.044862   98.774442  98.774442  5.174466  0.040632   0.011405  5.033128e-05
+         0.047485   98.761022  98.761022  5.184583  0.043358   0.012084  5.583925e-05
+         0.053367   98.730844  98.730844  5.207351  0.049496   0.013612  6.949205e-05
+         0.059242   98.700554  98.700554  5.235511  0.050362   0.015146  8.384974e-05
+         0.063606   98.677966  98.677966  5.258272  0.049254   0.016291  9.508871e-05
+         0.067196   98.659313  98.659313  5.273045  0.052359   0.017236  1.041495e-04
+         0.072723   98.630496  98.630496  5.299955  0.053087   0.018697  1.191345e-04
+         0.074865   98.619291  98.619291  5.308841  0.054946   0.019265  1.248984e-04
+         0.076470   98.610885  98.610885  5.317370  0.054478   0.019691  1.292691e-04
+         0.078278   98.601396  98.601396  5.326523  0.054423   0.020172  1.341469e-04
+         0.080085   98.591893  98.591893  5.334999  0.055061   0.020654  1.390315e-04
+         0.081507   98.584413  98.584413  5.340678  0.056557   0.021033  1.429978e-04
+         0.082974   98.576684  98.576684  5.346253  0.058396   0.021425  1.471911e-04
+         0.084441   98.568948  98.568948  5.352397  0.059677   0.021818  1.515118e-04
+         0.087215   98.554297  98.554297  5.364258  0.061883   0.022561  1.599938e-04
+         0.088577   98.547094  98.547094  5.371205  0.061852   0.022927  1.641801e-04
+         0.090307   98.537931  98.537931  5.377511  0.064346   0.023391  1.696209e-04
+         0.092037   98.528756  98.528756  5.384805  0.065866   0.023857  1.752397e-04
+         0.095265   98.511612  98.511612  5.397851  0.069298   0.024727  1.861462e-04
+         0.100246   98.485062  98.485062  5.422548  0.070124   0.026075  2.032862e-04
+         0.106186   98.453275  98.453275  5.446781  0.076471   0.027689  2.250543e-04
+         0.113526   98.413782  98.413782  5.483523  0.077736   0.029695  2.528660e-04
+         0.117392   98.392892  98.392892  5.499485  0.081890   0.030756  2.682924e-04
+         0.120067   98.378397  98.378397  5.513460  0.081876   0.031493  2.791484e-04
+         {\ldots}              {\ldots}        {\ldots}       {\ldots}       {\ldots}        {\ldots}           {\ldots}
+         59.974208   0.000005   0.000005 -0.000017  6.811831  84.056566  2.493748e+01
+         59.974252   0.000005   0.000005 -0.000033  6.811832  84.056566  2.493749e+01
+         59.974295   0.000005   0.000005 -0.000049  6.811833  84.056566  2.493751e+01
+         59.974341   0.000005   0.000005 -0.000049  6.811817  84.056566  2.493752e+01
+         59.974631   0.000005   0.000005 -0.000105  6.811774  84.056566  2.493762e+01
+         59.974755   0.000005   0.000005 -0.000105  6.811732  84.056566  2.493766e+01
+         59.975993   0.000005   0.000005 -0.000105  6.811310  84.056566  2.493809e+01
+         59.988371   0.000005   0.000005 -0.000105  6.807096  84.056566  2.494230e+01
+         59.994013   0.000005   0.000005 -0.000105  6.805176  84.056566  2.494422e+01
+         59.996075   0.000005   0.000005 -0.000105  6.804475  84.056566  2.494492e+01
+         59.996586   0.000005   0.000005 -0.000105  6.804301  84.056566  2.494509e+01
+         59.998127   0.000005   0.000005 -0.000105  6.803777  84.056566  2.494562e+01
+         59.998609   0.000005   0.000005  0.000117  6.803391  84.056566  2.494578e+01
+         59.998665   0.000005   0.000005  0.000136  6.803353  84.056566  2.494580e+01
+         59.998721   0.000005   0.000005  0.000116  6.803354  84.056566  2.494582e+01
+         59.998778   0.000005   0.000005  0.000110  6.803340  84.056566  2.494584e+01
+         59.998809   0.000005   0.000005  0.000087  6.803353  84.056566  2.494585e+01
+         59.998843   0.000005   0.000005  0.000047  6.803382  84.056566  2.494586e+01
+         59.998885   0.000005   0.000005  0.000042  6.803372  84.056566  2.494588e+01
+         59.998934   0.000005   0.000005  0.000037  6.803360  84.056566  2.494589e+01
+         59.998997   0.000005   0.000005  0.000060  6.803316  84.056566  2.494592e+01
+         59.999063   0.000005   0.000005  0.000012  6.803342  84.056566  2.494594e+01
+         59.999132   0.000005   0.000005 -0.000025  6.803355  84.056566  2.494596e+01
+         59.999193   0.000005   0.000005 -0.000037  6.803346  84.056566  2.494598e+01
+         59.999238   0.000005   0.000005 -0.000054  6.803348  84.056566  2.494600e+01
+         59.999274   0.000005   0.000005 -0.000054  6.803335  84.056566  2.494601e+01
+         59.999307   0.000005   0.000005 -0.000054  6.803324  84.056566  2.494602e+01
+         59.999423   0.000005   0.000005 -0.000054  6.803285  84.056566  2.494606e+01
+         59.999567   0.000005   0.000005 -0.000054  6.803236  84.056566  2.494611e+01
+         60.000000   0.000005   0.000005 -0.000054  6.803088  84.056566  2.494626e+01
+         
+         [7165 rows x 6 columns]
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
